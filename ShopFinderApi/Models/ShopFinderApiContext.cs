@@ -5,6 +5,7 @@ namespace ShopFinderApi.Models;
 public class ShopFinderApiContext : DbContext
 {
   public DbSet<Shop> Shops { get; set; }
+  public DbSet<Restaurant> Restaurants { get; set; }
 
   public ShopFinderApiContext(DbContextOptions<ShopFinderApiContext> options) : base(options) { }
 
