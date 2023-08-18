@@ -15,7 +15,7 @@ public class ShopFinderApiContext : DbContext
       .HasData(
         new Shop { ShopId = 1, Description = "Larry's Rock Climbing", Rating = 5 },
         new Shop { ShopId = 2, Description = "DogLand", Rating = 5 },
-        new Shop { ShopId = 2, Description = "Paint-topia", Rating = 4 }
+        new Shop { ShopId = 3, Description = "Paint-topia", Rating = 4 }
       );
   }
 }
