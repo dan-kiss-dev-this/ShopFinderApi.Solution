@@ -42,4 +42,39 @@ public class ShopsController : ControllerBase
         await _db.SaveChangesAsync();
         return CreatedAtAction(nameof(GetShop), new { id = shop.ShopId }, shop);
     }
+
+    [HttpPut("{id}")]
+    public async Task<ActionResult<Shop>> Put(int id, Shop shop)
+    {
+        if (id != shop.ShopId)
+        {
+            return BadRequest();
+        }
+        // the async part is not the update but the save
+        _db.Shops.Update(shop);
+
+        try
+        {
+            await _db.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!ShopExists(id))
+            {
+                return NotFound();
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        //204 code in empty object shows success
+        return NoContent();
+    }
+
+    private bool ShopExists(int id)
+    {
+        return _db.Shops.Any(e => e.ShopId == id);
+    }
 }
