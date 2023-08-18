@@ -5,7 +5,7 @@ using ShopFinderApi.Models;
 namespace ShopFinderApi.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/[controller]/")]
 public class ShopsController : ControllerBase
 {
     private readonly ShopFinderApiContext _db;
@@ -21,5 +21,16 @@ public class ShopsController : ControllerBase
     public async Task<ActionResult<IEnumerable<Shop>>> Get()
     {
         return await _db.Shops.ToListAsync();
+    }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Shop>> Get(int id)
+    {
+        Shop shop = await _db.Shops.FindAsync(id);
+        if (shop == null)
+        {
+            return NotFound();
+        }
+        return shop;
     }
 }
