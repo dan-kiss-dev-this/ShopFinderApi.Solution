@@ -77,4 +77,17 @@ public class ShopsController : ControllerBase
     {
         return _db.Shops.Any(e => e.ShopId == id);
     }
+
+    [HttpDelete("{id}")]
+    public async Task<ActionResult<Shop>> DeleteShop(int id)
+    {
+        Shop deleteShop = await _db.Shops.FindAsync(id);
+        if (deleteShop == null)
+        {
+            return NotFound();
+        }
+        _db.Shops.Remove(deleteShop);
+        await _db.SaveChangesAsync();
+        return NoContent();
+    }
 }
