@@ -17,6 +17,7 @@ public class ShopsController : ControllerBase
         _logger = logger;
     }
 
+    // see swagger docs or use postman to get localhost:5000/api/Shops
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Shop>>> Get()
     {
@@ -24,7 +25,7 @@ public class ShopsController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Shop>> Get(int id)
+    public async Task<ActionResult<Shop>> GetShop(int id)
     {
         Shop shop = await _db.Shops.FindAsync(id);
         if (shop == null)
@@ -32,5 +33,13 @@ public class ShopsController : ControllerBase
             return NotFound();
         }
         return shop;
+    }
+
+    [HttpPost]
+    public async Task<ActionResult> Post(Shop shop)
+    {
+        await _db.Shops.AddAsync(shop);
+        await _db.SaveChangesAsync();
+        return CreatedAtAction(nameof(GetShop), new { id = shop.ShopId }, shop);
     }
 }
