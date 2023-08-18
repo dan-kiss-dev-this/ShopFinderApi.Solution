@@ -17,3 +17,11 @@ Make a appsettings.Development.json file
     }
   }
 }
+
+to make a migration
+$ dotnet ef migrations add Initial
+
+to update the database with the migration
+$ dotnet ef database update
+
+seed data comes from OnModelCreating method
