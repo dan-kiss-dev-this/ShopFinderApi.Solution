@@ -18,5 +18,13 @@ public class ShopFinderApiContext : DbContext
         new Shop { ShopId = 2, Description = "DogLand", Rating = 5 },
         new Shop { ShopId = 3, Description = "Paint-topia", Rating = 4 }
       );
+
+    builder.Entity<Restaurant>()
+    .HasData(
+      new Restaurant { RestaurantId = 1, Description = "La Bella", Rating = 5, TypeOfFood = "Italian" },
+      new Restaurant { RestaurantId = 2, Description = "CurryHouse", Rating = 4, TypeOfFood = "Indian" },
+      new Restaurant { RestaurantId = 3, Description = "Ye Old Fish and Chip", Rating = 4, TypeOfFood = "English" }
+    );
   }
 }
+
