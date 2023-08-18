@@ -6,6 +6,7 @@ public class ShopFinderApiContext : DbContext
 {
   public DbSet<Shop> Shops { get; set; }
   public DbSet<Restaurant> Restaurants { get; set; }
+  public DbSet<User> Users { get; set;}
 
   public ShopFinderApiContext(DbContextOptions<ShopFinderApiContext> options) : base(options) { }
 
@@ -24,6 +25,11 @@ public class ShopFinderApiContext : DbContext
       new Restaurant { RestaurantId = 1, Description = "La Bella", Rating = 5, TypeOfFood = "Italian" },
       new Restaurant { RestaurantId = 2, Description = "CurryHouse", Rating = 4, TypeOfFood = "Indian" },
       new Restaurant { RestaurantId = 3, Description = "Ye Old Fish and Chip", Rating = 4, TypeOfFood = "English" }
+    );
+
+    builder.Entity<User>()
+    .HasData(
+      new User { UserId = 1, UserName = "sampleUser", Password = "samplePass" }
     );
   }
 }
