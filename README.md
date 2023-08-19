@@ -43,9 +43,12 @@ Now add the database called shop_finder_api and see it in MySQL Workbench.
 In the Factory folder run the migration
 $ dotnet ef database update
 
-If wanted to add new columns in MySQL make a new migration and run the command below, change [DescribeYourMigration] to a description you like and remember to commit the changes.
+If wanted to add new columns in MySQL make a new migration and run the command below, change [DescribeYourMigration] to a description you like and remember to commit the changes. 
+
 $ dotnet ef migrations add [DescribeYourMigration]
+
 To include the new database migration again run
+
 $ dotnet ef database update
 
 Database Tables
@@ -56,7 +59,7 @@ After you are finished with the above steps, go to MySQL the Navigator > Schemas
 
 Now go to the ShopFinderApi folder and run
 
-$ dotnet run
+$ dotnet watch run
 
 As Entity Framework Core is used with the standard naming convention there is not testing added as there is not unique functions used that should be tested.
 
@@ -88,6 +91,17 @@ _{Double check that the bin and obj folders are created in the ShopFinderApi fol
 ## Idea to expand on
 
 * _Make it so that an account is associated with a shop so only the account owner or an admin user can edit the shop once made.
+* _Make a appsettings.Development.json file
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Trace",
+      "Microsoft.AspNetCore": "Information",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  }
+}
 
 ## Notes on project
 
@@ -101,7 +115,9 @@ _{Double check that the bin and obj folders are created in the ShopFinderApi fol
 
 ## Git Note
 Remove bin and obj folders from git with 
+
 $ git rm --cached obj -r 
+
 $ git rm --cached bin -r
 
 ## License
@@ -109,50 +125,3 @@ $ git rm --cached bin -r
 _{MIT License}_
 
 Copyright (c) _2023_ _Daniel Kiss_
-
-
-
-///////
-
-
-Make a appsettings.json file
-
-{
-  "ConnectionStrings": {
-    "DefaultConnection": "Server=localhost;Port=3306;database=shop_finder_api;uid=[somerootoruser];pwd=[somepassword]"
-  }
-}
-
-Make a appsettings.Development.json file
-{
-  "Logging": {
-    "LogLevel": {
-      "Default": "Information",
-      "Microsoft": "Trace",
-      "Microsoft.AspNetCore": "Information",
-      "Microsoft.Hosting.Lifetime": "Information"
-    }
-  }
-}
-
-to make a migration
-$ dotnet ef migrations add Initial
-
-to update the database with the migration
-$ dotnet ef database update
-
-seed data comes from OnModelCreating method
-
-see swagger api documentation http://localhost:5000/swagger/index.html
-
-the default user included when setting up the database is 
-{
-    "UserName": "sampleUser",
-    "password": "samplePass"
-}
-
-to get a token for CUD actions (R is authorized without a token) make a POST request to http://localhost:5000/api/users/getToken with the body below in raw json in tool such as Postman
-{
-    "UserName": "sampleUser",
-    "password": "samplePass"
-}
