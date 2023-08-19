@@ -1,11 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 using ShopFinderApi.Models;
 
 namespace ShopFinderApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]/")]
+[Authorize]
 public class ShopsController : ControllerBase
 {
     private readonly ShopFinderApiContext _db;
@@ -19,6 +21,7 @@ public class ShopsController : ControllerBase
 
     // see swagger docs or use postman to get localhost:5000/api/Shops
     [HttpGet]
+    [AllowAnonymous]
     public async Task<ActionResult<IEnumerable<Shop>>> Get()
     {
         return await _db.Shops.ToListAsync();
